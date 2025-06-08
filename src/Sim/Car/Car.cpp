@@ -1,8 +1,8 @@
-#include "Car.h"
-#include "../../RLConst.h"
+#include <RocketSim/Sim/Car/Car.h>
+#include <RocketSim/RLConst.h>
 
-#include "../../../libsrc/bullet3-3.24/BulletDynamics/Dynamics/btDynamicsWorld.h"
-#include "../CollisionMasks.h"
+#include <bullet3-3.24/BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <RocketSim/Sim/CollisionMasks.h>
 
 RS_NS_START
 

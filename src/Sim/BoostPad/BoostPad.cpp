@@ -1,8 +1,7 @@
-#include "BoostPad.h"
+#include <RocketSim/Sim/BoostPad/BoostPad.h>
+#include <RocketSim/RLConst.h>
+#include <bullet3-3.24/BulletDynamics/Dynamics/btRigidBody.h>
 
-#include "../../RLConst.h"
-
-#include "../../../libsrc/bullet3-3.24/BulletDynamics/Dynamics/btRigidBody.h"
 
 RS_NS_START
 

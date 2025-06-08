@@ -1,10 +1,9 @@
-#include "CollisionMeshFile.h"
+#include <RocketSim/CollisionMeshFile/CollisionMeshFile.h>
+#include <RocketSim/DataStream/DataStreamIn.h>
 
-#include "../DataStream/DataStreamIn.h"
-
-#include "../../libsrc/bullet3-3.24/BulletDynamics/Dynamics/btRigidBody.h"
-#include "../../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
-#include "../../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btTriangleMesh.h"
+#include <bullet3-3.24/BulletDynamics/Dynamics/btRigidBody.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btTriangleMesh.h>
 
 RS_NS_START
 

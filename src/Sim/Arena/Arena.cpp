@@ -1,16 +1,18 @@
-#include "Arena.h"
-#include "../../RocketSim.h"
+#include <RocketSim/Sim/Arena/Arena.h>
+#include <RocketSim/RocketSim.h>
 
-#include "../../../libsrc/bullet3-3.24/BulletCollision/BroadphaseCollision/btAxisSweep3.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/BroadphaseCollision/btSimpleBroadphase.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/BroadphaseCollision/btRSBroadphase.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/CollisionDispatch/btInternalEdgeUtility.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btBoxShape.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btSphereShape.h"
-#include "DropshotTiles/DropshotTiles.h"
+#include <bullet3-3.24/BulletCollision/BroadphaseCollision/btAxisSweep3.h>
+#include <bullet3-3.24/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
+#include <bullet3-3.24/BulletCollision/BroadphaseCollision/btSimpleBroadphase.h>
+#include <bullet3-3.24/BulletCollision/BroadphaseCollision/btRSBroadphase.h>
+#include <bullet3-3.24/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h>
+#include <bullet3-3.24/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h>
+#include <bullet3-3.24/BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btBoxShape.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btSphereShape.h>
+
+#include <RocketSim/Sim/Arena/DropshotTiles/DropshotTiles.h>
+
 
 RS_NS_START
 

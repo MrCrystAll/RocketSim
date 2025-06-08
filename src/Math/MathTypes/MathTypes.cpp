@@ -1,6 +1,5 @@
-#include "MathTypes.h"
-
-#include "../Math.h"
+#include <RocketSim/Math/MathTypes/MathTypes.h>
+#include <RocketSim/Math/Math.h>
 
 RS_NS_START
 

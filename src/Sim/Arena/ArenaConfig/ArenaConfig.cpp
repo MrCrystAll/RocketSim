@@ -1,4 +1,4 @@
-#include "ArenaConfig.h"
+#include <RocketSim/Sim/Arena/ArenaConfig/ArenaConfig.h>
 
 RS_NS_START
 

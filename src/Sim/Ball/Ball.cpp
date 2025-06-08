@@ -1,11 +1,12 @@
-#include "Ball.h"
+#include <RocketSim/Sim/Ball/Ball.h>
+#include <RocketSim/RLConst.h>
 
-#include "../../RLConst.h"
-#include "../Car/Car.h"
+#include <RocketSim/Sim/Car/Car.h>
 
-#include "../../../libsrc/bullet3-3.24/BulletDynamics/Dynamics/btDynamicsWorld.h"
-#include "../../../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btConvexHullShape.h"
-#include "../CollisionMasks.h"
+#include <bullet3-3.24/BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btConvexHullShape.h>
+
+#include <RocketSim/Sim/CollisionMasks.h>
 
 RS_NS_START
 

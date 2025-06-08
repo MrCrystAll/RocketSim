@@ -1,4 +1,4 @@
-#include "BoostPadGrid.h"
+#include <RocketSim/Sim/BoostPad/BoostPadGrid/BoostPadGrid.h>
 
 RS_NS_START
 

@@ -1,6 +1,5 @@
-#include "DropshotTiles.h"
-
-#include "../../../../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btConvexHullShape.h"
+#include <RocketSim/Sim/Arena/DropshotTiles/DropshotTiles.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btConvexHullShape.h>
 
 RS_NS_START
 

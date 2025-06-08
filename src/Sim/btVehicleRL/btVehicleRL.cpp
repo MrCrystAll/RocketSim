@@ -1,9 +1,10 @@
-#include "btVehicleRL.h"
-#include "../../RLConst.h"
+#include <RocketSim/Sim/btVehicleRL/btVehicleRL.h>
+#include <RocketSim/RLConst.h>
+
 #define ROLLING_INFLUENCE_FIX
 
-#include "../../../libsrc/bullet3-3.24/BulletDynamics/Dynamics/btDynamicsWorld.h"
-#include "../../../libsrc/bullet3-3.24/BulletDynamics/ConstraintSolver/btContactConstraint.h"
+#include <bullet3-3.24/BulletDynamics/Dynamics/btDynamicsWorld.h>
+#include <bullet3-3.24/BulletDynamics/ConstraintSolver/btContactConstraint.h>
 
 RS_NS_START
 

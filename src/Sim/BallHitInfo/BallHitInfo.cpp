@@ -1,4 +1,4 @@
-#include "BallHitInfo.h"
+#include <RocketSim/Sim/BallHitInfo/BallHitInfo.h>
 
 RS_NS_START
 

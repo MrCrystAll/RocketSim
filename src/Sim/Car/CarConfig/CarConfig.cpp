@@ -1,4 +1,4 @@
-#include "CarConfig.h"
+#include <RocketSim/Sim/Car/CarConfig/CarConfig.h>
 
 RS_NS_START
 

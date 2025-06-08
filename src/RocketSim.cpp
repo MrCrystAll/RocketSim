@@ -1,8 +1,8 @@
-#include "RocketSim.h"
+#include <RocketSim/RocketSim.h>
 
-#include "../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
-#include "../libsrc/bullet3-3.24/BulletCollision/CollisionShapes/btTriangleMesh.h"
-#include "../libsrc/bullet3-3.24/BulletCollision/CollisionDispatch/btInternalEdgeUtility.h"
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
+#include <bullet3-3.24/BulletCollision/CollisionShapes/btTriangleMesh.h>
+#include <bullet3-3.24/BulletCollision/CollisionDispatch/btInternalEdgeUtility.h>
 
 using namespace RocketSim;
 
