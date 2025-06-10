@@ -2,6 +2,8 @@
 
 include(CMakePackageConfigHelpers)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(ROCKETSIM_INSTALL_CMAKEDIR lib/cmake/RocketSim)
 include(CheckIPOSupported)
 
