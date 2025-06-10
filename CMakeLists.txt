@@ -7,7 +7,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(ROCKETSIM_INSTALL_CMAKEDIR lib/cmake/RocketSim)
 include(CheckIPOSupported)
 
-project("RocketSim" VERSION 2.2)
+project("RocketSim" VERSION 2.2.1)
 
 # Optional: version file
 write_basic_package_version_file(
