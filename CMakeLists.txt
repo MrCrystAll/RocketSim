@@ -1,25 +1,36 @@
 ﻿cmake_minimum_required (VERSION 3.19)
 
+project("RocketSim" VERSION 2.2.1 LANGUAGES CXX)
+
 include(CMakePackageConfigHelpers)
+include(CheckIPOSupported)
+include(GNUInstallDirs)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(ROCKETSIM_INSTALL_CMAKEDIR lib/cmake/RocketSim)
-include(CheckIPOSupported)
+# Define path variables
+set(${PROJECT_NAME}_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(${PROJECT_NAME}_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(${PROJECT_NAME}_CMAKE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-project("RocketSim" VERSION 2.2.1)
+# For installed package
+set(${PROJECT_NAME}_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}")
+set(${PROJECT_NAME}_INSTALL_LIB_DIR "${CMAKE_INSTALL_LIBDIR}")
+set(${PROJECT_NAME}_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
+
+set(${PROJECT_NAME}_INSTALL_CMAKEDIR ${${PROJECT_NAME}_INSTALL_LIB_DIR}/cmake/${PROJECT_NAME})
 
 # Optional: version file
 write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/RocketSimConfigVersion.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY AnyNewerVersion
 )
 
 configure_package_config_file(
-    "${CMAKE_SOURCE_DIR}/cmake/RocketSimConfig.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/RocketSimConfig.cmake"
-    INSTALL_DESTINATION ${ROCKETSIM_INSTALL_CMAKEDIR}
+    "${CMAKE_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+    INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR}
 )
 
 # Add all headers and code files
@@ -58,42 +69,53 @@ target_include_directories(RocketSim
 set_target_properties(RocketSim PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(RocketSim PROPERTIES CXX_STANDARD 20)
 
-
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/RocketSim
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
+install(TARGETS RocketSim
+    EXPORT RocketSimTargets
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/libsrc/bullet3-3.24
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
+# Export targets
+install(EXPORT ${PROJECT_NAME}Targets
+    FILE ${PROJECT_NAME}Targets.cmake
+    NAMESPACE ${PROJECT_NAME}::
+    DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR}
+)
+
+# Install headers
+install(DIRECTORY ${${PROJECT_NAME}_INCLUDE_DIR}/  "${CMAKE_CURRENT_SOURCE_DIR}/libsrc/"
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.h"
 )
 
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/generated/RocketSim/version.h
-    DESTINATION include/RocketSim
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/RocketSim
 )
 
-install(TARGETS RocketSim
-    EXPORT RocketSimTargets
-    RUNTIME DESTINATION lib
-    LIBRARY DESTINATION lib
-    ARCHIVE DESTINATION lib
-    INCLUDES DESTINATION include
+# Configure package config file
+configure_package_config_file(
+    ${${PROJECT_NAME}_CMAKE_DIR}/${PROJECT_NAME}Config.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
+    PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR
 )
 
-install(FILES cmake/FindRocketSim.cmake
-        DESTINATION cmake)
-
-# Export targets
-install(EXPORT RocketSimTargets
-    FILE RocketSimTargets.cmake
-    NAMESPACE RocketSim::
-    DESTINATION ${ROCKETSIM_INSTALL_CMAKEDIR}
+# Create version file
+write_basic_package_version_file(
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
 )
 
-# Install config and version files
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/RocketSimConfig.cmake" "${CMAKE_CURRENT_BINARY_DIR}/RocketSimConfigVersion.cmake" DESTINATION ${ROCKETSIM_INSTALL_CMAKEDIR})
+# Install config files
+install(FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
 
 install(FILES
     ${CMAKE_SOURCE_DIR}/LICENSE
