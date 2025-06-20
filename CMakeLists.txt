@@ -1,4 +1,4 @@
-﻿cmake_minimum_required (VERSION 3.19)
+﻿cmake_minimum_required (VERSION 3.31)
 
 project("RocketSim" VERSION 2.2.2 LANGUAGES CXX)
 
@@ -18,8 +18,6 @@ set(${PROJECT_NAME}_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}")
 set(${PROJECT_NAME}_INSTALL_LIB_DIR "${CMAKE_INSTALL_LIBDIR}")
 set(${PROJECT_NAME}_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 
-set(${PROJECT_NAME}_INSTALL_CMAKEDIR ${${PROJECT_NAME}_INSTALL_LIB_DIR}/cmake/${PROJECT_NAME})
-
 # Optional: version file
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
@@ -30,7 +28,7 @@ write_basic_package_version_file(
 configure_package_config_file(
     "${CMAKE_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-    INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR}
+    INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
 )
 
 # Add all headers and code files
@@ -81,7 +79,7 @@ install(TARGETS RocketSim
 install(EXPORT ${PROJECT_NAME}Targets
     FILE ${PROJECT_NAME}Targets.cmake
     NAMESPACE ${PROJECT_NAME}::
-    DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKEDIR}
+    DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
 )
 
 # Install headers
@@ -99,7 +97,7 @@ install(FILES
 configure_package_config_file(
     ${${PROJECT_NAME}_CMAKE_DIR}/${PROJECT_NAME}Config.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-    INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_LIB_DIR}
+    INSTALL_DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
     PATH_VARS CMAKE_INSTALL_INCLUDEDIR CMAKE_INSTALL_LIBDIR
 )
 
@@ -114,7 +112,7 @@ write_basic_package_version_file(
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+    DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
 )
 
 install(FILES
