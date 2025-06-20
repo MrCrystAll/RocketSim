@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required (VERSION 3.31)
 
-project("RocketSim" VERSION 2.2.2 LANGUAGES CXX)
+project("RocketSim" VERSION 2.2.3 LANGUAGES CXX)
 
 include(CMakePackageConfigHelpers)
 include(CheckIPOSupported)
