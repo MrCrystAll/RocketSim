@@ -53,7 +53,7 @@ jobs:
         build-dir: ${{ steps.strings.outputs.build-output-dir }}
         cc: ${{ matrix.config.cc }}
         cxx: ${{ matrix.config.cxx }}
-        configure-options: -G Ninja -DCMAKE_PREFIX_PATH ${{ steps.strings.outputs.install-dir }}
+        configure-options: -G Ninja -DCMAKE_PREFIX_PATH=${{ steps.strings.outputs.install-dir }}
         build-type: Release
         run-test: true
         ctest-options: --test-dir ${{ steps.strings.outputs.build-output-dir }} --output-on-failure
