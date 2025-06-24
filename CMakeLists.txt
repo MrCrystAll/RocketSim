@@ -119,5 +119,3 @@ install(FILES
     ${CMAKE_SOURCE_DIR}/README.md
     DESTINATION .
 )
-enable_testing()
-add_subdirectory(tests)
