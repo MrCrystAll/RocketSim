@@ -53,12 +53,20 @@ jobs:
         build-dir: ${{ steps.strings.outputs.build-output-dir }}
         cc: ${{ matrix.config.cc }}
         cxx: ${{ matrix.config.cxx }}
-        configure-options: -G Ninja -DCMAKE_PREFIX_PATH=${{ steps.strings.outputs.install-dir }}/lib/cmake/RocketSim
+        configure-options: -G Ninja
         build-type: Release
         run-test: true
         ctest-options: --test-dir ${{ steps.strings.outputs.build-output-dir }} --output-on-failure
         install-build: true
         install-options: --prefix ${{ steps.strings.outputs.install-dir }}
+        
+    - name: Test installed library integration
+      shell: bash
+      run: |
+        cd RocketSimIntegration
+        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=${{ steps.strings.outputs.install-dir }} -DCMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
+        ctest --test-dir build --output-on-failure
 
     - name: Package library (Windows)
       if: matrix.config.os == 'windows-latest'
@@ -72,9 +80,6 @@ jobs:
       shell: bash
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: |
-        # Example: Tar and gzip your built library files. Adjust as needed.
-        # This assumes your library is located at libmy_library.so or libmy_library.a
-        # You'll need to modify this to match your actual build output structure.
         tar -czvf "../RocketSim-${{ matrix.config.artifact_suffix }}.tar.gz" -C ${{ steps.strings.outputs.install-dir }} .
 
     - name: Upload artifact
