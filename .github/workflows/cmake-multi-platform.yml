@@ -53,10 +53,10 @@ jobs:
         build-dir: ${{ steps.strings.outputs.build-output-dir }}
         cc: ${{ matrix.config.cc }}
         cxx: ${{ matrix.config.cxx }}
-        configure-options: -G Ninja
+        configure-options: -G Ninja --prefix ${{ steps.strings.outputs.install-dir }}
         build-type: Release
         run-test: true
-        ctests-options: --test-dir ${{ steps.strings.outputs.build-output-dir }} --output-on-failure
+        ctest-options: --test-dir ${{ steps.strings.outputs.build-output-dir }} --output-on-failure
         install-build: true
         install-options: --prefix ${{ steps.strings.outputs.install-dir }}
 
