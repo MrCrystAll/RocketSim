@@ -63,7 +63,7 @@ jobs:
     - name: Test installed library integration
       shell: bash
       run: |
-        cd RocketSimIntegration
+        cd tests/integrationTests
         cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=${{ steps.strings.outputs.install-dir }} -DCMAKE_BUILD_TYPE=Release
         cmake --build build --config Release
         ctest --test-dir build --output-on-failure
