@@ -56,6 +56,7 @@ jobs:
         configure-options: -G Ninja
         build-type: Release
         run-test: true
+        ctests-options: --test-dir ${{ steps.strings.outputs.build-output-dir }} --output-on-failure
         install-build: true
         install-options: --prefix ${{ steps.strings.outputs.install-dir }}
 
