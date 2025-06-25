@@ -62,7 +62,7 @@ pos, rotMat, vel, angVel, \
 hsInfo.yTargetDir, hsInfo.curTargetSpeed, hsInfo.timeSinceHit, \
 dsInfo.chargeLevel, dsInfo.accumulatedHitForce, dsInfo.yTargetDir, dsInfo.hasDamaged, dsInfo.lastDamageTick \
 
-class Ball {
+class RS_API Ball {
 public:
 
 	BallState _internalState;

@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.4] - 2025-06-25
 
+### Fixed
+
+- Car and Ball API are now available
+
+## [2.2.4] - 2025-06-25
+
 ### Changed
 
 - RocketSim is now a dynamic library

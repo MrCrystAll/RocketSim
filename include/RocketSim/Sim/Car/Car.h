@@ -137,7 +137,7 @@ enum class Team : byte {
 #define RS_OPPOSITE_TEAM(team) ((team) == Team::BLUE ? Team::ORANGE : Team::BLUE)
 #define RS_TEAM_FROM_Y(y) ((y) < 0 ? Team::BLUE : Team::ORANGE)
 
-class Car {
+class RS_API Car {
 public:
 	// Configuration for this car
 	CarConfig config;
