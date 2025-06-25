@@ -87,10 +87,20 @@ size_t __RS_GET_ARGUMENT_COUNT(Args ...) {
 }
 #define RS_GET_ARGUMENT_COUNT __RS_GET_ARGUMENT_COUNT
 
-#ifdef ROCKETSIM_EXPORTS
-#define RS_API __declspec(dllexport)
+#if defined(_MSC_VER)
+// MSVC
+#define RS_EXPORTED __declspec(dllexport)
+#define RS_IMPORTED __declspec(dllimport)
 #else
-#define RS_API __declspec(dllimport)
+// Everything else (?)
+#define RS_EXPORTED __attribute__((visibility("default")))
+#define RS_IMPORTED
+#endif
+
+#ifdef ROCKETSIM_EXPORTS
+#define RS_API RS_EXPORTED
+#else
+#define RS_API RS_IMPORTED
 #endif
 
 constexpr uint32_t __RS_GET_VERSION_ID() {
