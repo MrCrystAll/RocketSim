@@ -22,10 +22,10 @@ struct BoostPadGrid {
 
 	BoostPad* pads[CELLS_X][CELLS_Y] = {};
 
-	BoostPadGrid() = default;
+	RS_API BoostPadGrid() = default;
 
-	void CheckCollision(Car* car);
-	void Add(BoostPad* pad);
+	RS_API void CheckCollision(Car* car);
+	RS_API void Add(BoostPad* pad);
 };
 
 RS_NS_END

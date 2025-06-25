@@ -12,7 +12,7 @@ class btTriangleMesh;
 RS_NS_START
 
 // Collision mesh file structure based off of the one in https://github.com/ZealanL/RLArenaCollisionDumper
-struct CollisionMeshFile {
+struct RS_API CollisionMeshFile {
 
 	struct Triangle {
 		int vertexIndexes[3];

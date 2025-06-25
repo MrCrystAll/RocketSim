@@ -105,7 +105,7 @@ void RocketSim::InitFromMem(const std::map<GameMode, std::vector<FileData>>& mes
 		}
 
 		if (!silent)
-			RS_LOG("Initializing RocketSim version " RS_VERSION ", created by ZealanL...");
+			RS_LOG("Initializing RocketSim version " ROCKETSIM_VERSION ", created by ZealanL...");
 
 		stage = RocketSimStage::INITIALIZING;
 

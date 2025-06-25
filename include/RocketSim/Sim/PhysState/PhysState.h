@@ -4,7 +4,7 @@
 
 RS_NS_START
 
-struct PhysState {
+struct RS_API PhysState {
 	// Position in world space (UU)
 	Vec pos = {};
 	

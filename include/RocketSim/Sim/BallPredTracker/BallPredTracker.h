@@ -5,7 +5,7 @@
 RS_NS_START
 
 // An external tool struct that predicts the ball of a given arena
-struct BallPredTracker {
+struct RS_API BallPredTracker {
 	Arena* ballPredArena;
 	std::vector<BallState> predData;
 	size_t numPredTicks;

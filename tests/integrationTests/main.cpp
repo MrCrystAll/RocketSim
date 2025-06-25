@@ -9,7 +9,7 @@ int main() {
 	using std::cout, std::endl;
 	using namespace RocketSim;
 
-	Init("./resources/collision_meshes", true);
+	Init("./resources/collision_meshes", false);
 
 	Arena* arena = Arena::Create(GameMode::SOCCAR);
 	arena->Step(100);

@@ -16,7 +16,7 @@ class btDynamicsWorld;
 
 RS_NS_START
 
-struct BallState : public PhysState {
+struct RS_API BallState : public PhysState {
 	// Incremented every update, reset when SetState() is called
 	// Used for telling if a stateset occured
 	// Not serialized

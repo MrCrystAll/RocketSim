@@ -25,16 +25,16 @@ namespace RocketSim {
 	extern std::filesystem::path _collisionMeshesFolder;
 	extern std::mutex _beginInitMutex;
 
-	void Init(std::filesystem::path collisionMeshesFolder, bool silent = false);
+	RS_API void Init(std::filesystem::path collisionMeshesFolder, bool silent = false);
 
 	// Instead of loading a collision meshes folder, you can pass in the meshes in this memory-only format
 	// The map sorts mesh files to their respective game modes, where each game mode has a list of mesh files
 	// The mesh files themselves are just byte arrays
-	void InitFromMem(const std::map<GameMode, std::vector<FileData>>& meshFilesMap, bool silent = false);
+	RS_API void InitFromMem(const std::map<GameMode, std::vector<FileData>>& meshFilesMap, bool silent = false);
 
 	void AssertInitialized(const char* errorMsgPrefix);
 
-	RocketSimStage GetStage();
+	RS_API RocketSimStage GetStage();
 
-	std::vector<btBvhTriangleMeshShape*>& GetArenaCollisionShapes(GameMode gameMode);
+	RS_API std::vector<btBvhTriangleMeshShape*>& GetArenaCollisionShapes(GameMode gameMode);
 }

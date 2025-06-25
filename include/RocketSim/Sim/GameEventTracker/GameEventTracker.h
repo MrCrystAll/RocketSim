@@ -8,7 +8,7 @@ typedef std::function<void(class Arena* arena, Car* shooter, Car* passer, void* 
 typedef std::function<void(class Arena* arena, Car* scorer, Car* passer, void* userInfo)> GoalEventFn;
 typedef std::function<void(class Arena* arena, Car* saver, void* userInfo)> SaveEventFn;
 
-struct GameEventTrackerConfig {
+struct RS_API GameEventTrackerConfig {
 	// NOTE: These are not the same values as the game, they are just what makes sense to me
 	// You should probably change them to what you want/need
 	
@@ -46,7 +46,7 @@ struct GameEventTrackerConfig {
 // An external tool struct that tracks saves, shots, assists, and goals
 // When Update() is called and one of these events occurs, the associated callback will be called (if a callback is registered)
 // Note that bumps and demos are not tracked as they are already trackable through arena callbacks
-struct GameEventTracker {
+struct RS_API GameEventTracker {
 	GameEventTrackerConfig config = {};
 
 	struct {

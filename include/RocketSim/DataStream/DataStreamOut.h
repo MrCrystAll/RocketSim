@@ -6,7 +6,7 @@
 RS_NS_START
 
 // Basic struct for writing raw data to a file
-struct DataStreamOut {
+struct RS_API DataStreamOut {
 	std::vector<byte> data;
 	size_t pos = 0;
 

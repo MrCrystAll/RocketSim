@@ -5,7 +5,7 @@
 
 RS_NS_START
 
-struct DropshotTileState {
+struct RS_API DropshotTileState {
 	enum {
 		STATE_FULL = 0,
 		STATE_DAMAGED,
@@ -14,7 +14,7 @@ struct DropshotTileState {
 	uint8_t damageState = STATE_FULL;
 };
 
-struct DropshotTilesState {
+struct RS_API DropshotTilesState {
 	enum {
 		STATE_FULL = 0,
 		STATE_DAMAGED,
@@ -33,11 +33,11 @@ struct DropshotTilesState {
 };
 
 namespace DropshotTiles {
-	void Init();
+	RS_API void Init();
 
-	Vec GetTilePos(int team, int index);
-	std::vector<btCollisionShape*> MakeTileShapes();
-	std::vector<int> GetNeighborIndices(int startIdx, int radius);
+	RS_API Vec GetTilePos(int team, int index);
+	RS_API std::vector<btCollisionShape*> MakeTileShapes();
+	RS_API std::vector<int> GetNeighborIndices(int startIdx, int radius);
 };
 
 RS_NS_END

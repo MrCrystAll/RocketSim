@@ -4,7 +4,7 @@
 
 RS_NS_START
 
-struct SerializeObject {
+struct RS_API SerializeObject {
 	void* ptr;
 	size_t size = -1;
 

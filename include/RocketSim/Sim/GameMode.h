@@ -4,7 +4,7 @@
 
 RS_NS_START
 
-enum class GameMode : byte {
+enum class RS_API GameMode : byte {
 	SOCCAR,
 	HOOPS,
 	HEATSEEKER,

@@ -1,7 +1,5 @@
 #pragma once
 
-#define RS_VERSION "2.2"
-
 #include <stdint.h>
 #include <iostream>
 #include <string>
@@ -38,6 +36,8 @@
 // Disable annoying truncation warnings on MSVC
 #pragma warning(disable: 4305 4244 4267)
 #endif
+
+#include <RocketSim/version.h>
 
 typedef uint8_t byte;
 
@@ -87,10 +87,16 @@ size_t __RS_GET_ARGUMENT_COUNT(Args ...) {
 }
 #define RS_GET_ARGUMENT_COUNT __RS_GET_ARGUMENT_COUNT
 
+#ifdef ROCKETSIM_EXPORTS
+#define RS_API __declspec(dllexport)
+#else
+#define RS_API __declspec(dllimport)
+#endif
+
 constexpr uint32_t __RS_GET_VERSION_ID() {
 	uint32_t result = 0;
-	for (int i = 0; i < sizeof(RS_VERSION); i++)
-		result = RS_MAX(RS_VERSION[i] - '0' + 1, 0) + (result*10);
+	for (int i = 0; i < sizeof(ROCKETSIM_VERSION); i++)
+		result = RS_MAX(ROCKETSIM_VERSION[i] - '0' + 1, 0) + (result*10);
 	return result;
 }
 #define RS_VERSION_ID (__RS_GET_VERSION_ID())

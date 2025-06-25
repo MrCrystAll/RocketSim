@@ -15,16 +15,16 @@ namespace Math {
 
 	// NOTE: min is inclusive, max is exclusive
 	// Seed will be used if not -1
-	int RandInt(int min, int max, int seed = -1);
+	RS_API int RandInt(int min, int max, int seed = -1);
 
-	float RandFloat(float min = 0, float max = 1);
+	RS_API float RandFloat(float min = 0, float max = 1);
 
-	std::default_random_engine& GetRandEngine();
+	RS_API std::default_random_engine& GetRandEngine();
 
-	float WrapNormalizeFloat(float val, float minmax);
+	RS_API float WrapNormalizeFloat(float val, float minmax);
 
 	// Simulates aggressive UE3 rotator rounding when converting from a UE3 rotator to vector
-	Angle RoundAngleUE3(Angle ang);
+	RS_API Angle RoundAngleUE3(Angle ang);
 }
 
 RS_NS_END

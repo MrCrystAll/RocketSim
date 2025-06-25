@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.29)
 
 add_executable(RocketSimIntegration "main.cpp")
 
+list(APPEND CMAKE_PREFIX_PATH "../../out/install/x64-Release/lib/cmake/RocketSim")
+
 find_package(RocketSim)
 
 function(print_status TARGET_NAME)
@@ -38,6 +40,15 @@ COPY_COLLISION_MESHES_IF_NEEDED(RocketSimIntegration)
 print_status(RocketSim)
 
 target_link_libraries(RocketSimIntegration PUBLIC RocketSim::RocketSim)
+
+if(MSVC)
+	file(GLOB RocketSim_DLLS "${RocketSim_BIN_DIR}/*.dll")
+	add_custom_command(TARGET RocketSimIntegration
+                 POST_BUILD
+                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                 ${RocketSim_DLLS}
+                 $<TARGET_FILE_DIR:RocketSimIntegration>)
+endif()
 
 set_target_properties(RocketSimIntegration PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(RocketSimIntegration PROPERTIES CXX_STANDARD 20)

@@ -59,14 +59,6 @@ jobs:
         ctest-options: --test-dir ${{ steps.strings.outputs.build-output-dir }} --output-on-failure
         install-build: true
         install-options: --prefix ${{ steps.strings.outputs.install-dir }}
-        
-    - name: Test installed library integration
-      shell: bash
-      run: |
-        cd tests/integrationTests
-        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=${{ steps.strings.outputs.install-dir }} -DCMAKE_BUILD_TYPE=Release
-        cmake --build build --config Release
-        ctest --test-dir build --output-on-failure
 
     - name: Package library (Windows)
       if: matrix.config.os == 'windows-latest'

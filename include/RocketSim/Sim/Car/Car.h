@@ -16,7 +16,7 @@
 
 RS_NS_START
 
-struct CarState : public PhysState {
+struct RS_API CarState : public PhysState {
 
 	// Incremented every update, reset when SetState() is called
 	// Used for telling if a stateset occured

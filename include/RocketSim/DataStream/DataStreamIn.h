@@ -6,7 +6,7 @@
 RS_NS_START
 
 // Basic struct for reading raw data from a file
-struct DataStreamIn {
+struct RS_API DataStreamIn {
 	std::vector<byte> data;
 	size_t pos = 0;
 

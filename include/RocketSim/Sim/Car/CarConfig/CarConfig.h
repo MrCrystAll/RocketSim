@@ -4,7 +4,7 @@
 
 RS_NS_START
 
-struct WheelPairConfig {
+struct RS_API WheelPairConfig {
 	// Radius of both wheels
 	float wheelRadius;
 
@@ -19,7 +19,7 @@ struct WheelPairConfig {
 #define WHEEL_PAIR_CONFIG_SERIALIZATION_FIELDS(name) \
 name.connectionPointOffset, name.suspensionRestLength, name.wheelRadius
 
-struct CarConfig {
+struct RS_API CarConfig {
 	// Full size of hitbox (NOT the half-size/extent)
 	Vec hitboxSize;
 

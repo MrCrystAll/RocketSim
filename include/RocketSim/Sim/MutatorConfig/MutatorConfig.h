@@ -9,13 +9,13 @@
 
 RS_NS_START
 
-enum class DemoMode : byte {
+enum class RS_API DemoMode : byte {
 	NORMAL,
 	ON_CONTACT,
 	DISABLED
 };
 
-struct MutatorConfig {
+struct RS_API MutatorConfig {
 
 	Vec gravity = Vec(0, 0, RLConst::GRAVITY_Z);
 
