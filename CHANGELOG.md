@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.2.4] - 2025-06-25
+## [2.2.6] - 2025-06-25
+
+### Fixed
+
+- CarConfig API is now available
+
+## [2.2.5] - 2025-06-25
 
 ### Fixed
 
