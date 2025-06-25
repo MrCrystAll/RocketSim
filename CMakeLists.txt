@@ -136,7 +136,6 @@ target_link_options(RocketSim PRIVATE
         -Wl,-O3                      # Linker optimization level
         -Wl,--as-needed              # Only link needed libraries
         -Wl,--gc-sections            # Remove unused sections
-        -Wl,--icf=all                # Identical code folding
         -Wl,-z,now                   # Resolve symbols at load time
         -Wl,-z,relro                 # Read-only relocations
         -Wl,--hash-style=gnu         # Use GNU hash style
