@@ -66,6 +66,92 @@ target_include_directories(RocketSim
 
 target_compile_definitions(RocketSim PRIVATE ROCKETSIM_EXPORTS)
 
+# Maximum performance optimizations for shared library
+target_compile_options(RocketSim PRIVATE
+    $<$<CXX_COMPILER_ID:GNU,Clang>:
+        # Core optimizations
+        -O3                             # Maximum optimization
+        -march=native                   # CPU-specific optimizations
+        -mtune=native                   # Tune for current CPU
+        -funroll-loops                  # Aggressive loop unrolling
+        -ffast-math                     # Fast math (breaks IEEE)
+        -ffinite-math-only             # Assume finite math
+        -fno-math-errno                # Don't set errno for math
+        -fno-signed-zeros              # Assume no signed zeros
+        -fno-trapping-math             # No math exceptions
+        -fassociative-math             # Allow math reassociation
+        -freciprocal-math              # Allow reciprocal approximations
+        
+        # Link-time optimizations
+        -flto                          # Link-time optimization
+        -fwhole-program               # Whole program optimization
+        
+        # Code generation
+        -fomit-frame-pointer          # Don't keep frame pointer
+        -fstrict-aliasing             # Strict aliasing rules
+        -fprefetch-loop-arrays        # Prefetch loop arrays
+        
+        # Shared library specific
+        -fPIC                         # Position independent code
+        -fvisibility=hidden           # Hide symbols by default
+        -fvisibility-inlines-hidden   # Hide inline symbols
+        -fno-plt                      # Avoid PLT overhead
+        -fno-semantic-interposition   # No symbol interposition
+        
+        # Advanced optimizations
+        -ftree-vectorize              # Auto-vectorization
+        -fvect-cost-model=unlimited   # Unlimited vectorization
+        -funswitch-loops              # Loop unswitching
+        -fpredictive-commoning        # Predictive commoning
+        -fgcse-after-reload           # GCSE after reload
+        -ftree-loop-distribute-patterns # Loop distribution
+        -fsplit-wide-types            # Split wide types
+        -ftree-loop-vectorize         # Loop vectorization
+        -ftree-slp-vectorize          # SLP vectorization
+    >
+    
+    $<$<CXX_COMPILER_ID:MSVC>:
+        # MSVC optimizations
+        /O2                           # Maximum optimization
+        /Ox                           # Full optimization
+        /Ob3                          # Aggressive inlining
+        /Oi                           # Enable intrinsics
+        /Ot                           # Favor speed over size
+        /Oy                           # Omit frame pointer
+        /GT                           # Fiber-safe TLS
+        /GL                           # Whole program optimization
+        /fp:fast                      # Fast floating point
+        /Qpar                         # Auto-parallelization
+        /arch:AVX2                    # Use AVX2 instructions
+        # /arch:AVX512                # Use AVX512 if available
+        /favor:INTEL64                # Optimize for Intel64
+    >
+)
+
+# Link-time optimizations
+target_link_options(RocketSim PRIVATE
+    $<$<CXX_COMPILER_ID:GNU,Clang>:
+        -flto                         # Link-time optimization
+        -fuse-linker-plugin          # Use linker plugin for LTO
+        -Wl,-O3                      # Linker optimization level
+        -Wl,--as-needed              # Only link needed libraries
+        -Wl,--gc-sections            # Remove unused sections
+        -Wl,--icf=all                # Identical code folding
+        -Wl,-z,now                   # Resolve symbols at load time
+        -Wl,-z,relro                 # Read-only relocations
+        -Wl,--hash-style=gnu         # Use GNU hash style
+        -Wl,--sort-common            # Sort common symbols
+        $<$<CONFIG:Release>:-Wl,--strip-all>  # Strip symbols in release
+    >
+    
+    $<$<CXX_COMPILER_ID:MSVC>:
+        /LTCG                        # Link-time code generation
+        /OPT:REF                     # Remove unreferenced functions
+        /OPT:ICF                     # Identical COMDAT folding
+        /INCREMENTAL:NO              # Disable incremental linking
+    >
+)
+
 set_target_properties(RocketSim PROPERTIES LINKER_LANGUAGE CXX)
 set_target_properties(RocketSim PROPERTIES CXX_STANDARD 20)
 
