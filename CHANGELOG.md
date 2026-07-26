@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.3.0] - 2026-07-26
 
-## Added
+### Added
 
 - Ball touch and boost pickup callback
 
