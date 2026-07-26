@@ -238,7 +238,10 @@ void Ball::_PreTickUpdate(GameMode gameMode, float tickTime) {
 void Ball::_OnHit(
 	Car* car, Vec relPos,
 	float& outFriction, float& outRestitution,
-	GameMode gameMode, const MutatorConfig& mutatorConfig, uint64_t tickCount
+	GameMode gameMode, const MutatorConfig& mutatorConfig, uint64_t tickCount,
+	Arena* arena,
+	BallTouchEventFn ballTouchEventFunc,
+	void* ballTouchEventUserInfo
 ) {
 	using namespace RLConst;
 
@@ -258,6 +261,11 @@ void Ball::_OnHit(
 
 	ballHitInfo.ballPos = ballState.pos;
 	ballHitInfo.extraHitVel = Vec();
+
+	_internalState.lastHitCarID = car->id;
+
+	if (ballTouchEventFunc)
+		ballTouchEventFunc(arena, car, ballTouchEventUserInfo);
 
 	// Once we do an extra car-ball impulse, we need to wait at least 1 tick to do it again
 	if ((tickCount > ballHitInfo.tickCountWhenExtraImpulseApplied + 1) || (ballHitInfo.tickCountWhenExtraImpulseApplied > tickCount)) {
@@ -284,7 +292,8 @@ void Ball::_OnHit(
 			// Velocity won't be actually added until the end of this tick
 			_velocityImpulseCache += addedVel * UU_TO_BT;
 		}
-	} else {
+	}
+	else {
 		// Don't do multiple extra impulses in a row
 		return;
 	}
@@ -297,7 +306,8 @@ void Ball::_OnHit(
 			_internalState.hsInfo.curTargetSpeed = RS_MIN(_internalState.hsInfo.curTargetSpeed + Heatseeker::TARGET_SPEED_INCREMENT, Heatseeker::MAX_SPEED);
 		}
 		_internalState.hsInfo.yTargetDir = newTargetDir;
-	} else if (gameMode == GameMode::DROPSHOT) {
+	}
+	else if (gameMode == GameMode::DROPSHOT) {
 		auto& accumulatedHitForce = _internalState.dsInfo.accumulatedHitForce;
 		auto& chargeLevel = _internalState.dsInfo.chargeLevel;
 
@@ -305,18 +315,18 @@ void Ball::_OnHit(
 		Vec relVelFromCar = carState.vel - ballState.vel;
 		float velIntoBall = dirFromCar.Dot(relVelFromCar);
 		if (velIntoBall >= Dropshot::MIN_CHARGE_HIT_SPEED) {
-			
+
 			accumulatedHitForce += velIntoBall;
 
 			// Normal charge
 			if (accumulatedHitForce >= Dropshot::MIN_ABSORBED_FORCE_FOR_CHARGE)
 				chargeLevel = 2;
-			
+
 			// Supercharge
 			if (accumulatedHitForce >= Dropshot::MIN_ABSORBED_FORCE_FOR_SUPERCHARGE)
 				chargeLevel = 3;
 		}
-		
+
 		if (chargeLevel > 1) {
 			float newTargetDir = (car->team == Team::BLUE) ? 1 : -1;
 			_internalState.dsInfo.yTargetDir = newTargetDir;

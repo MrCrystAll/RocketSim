@@ -99,6 +99,19 @@ Car* Arena::GetCar(uint32_t id) {
 	return _carIDMap[id];
 }
 
+void Arena::SetBallTouchCallback(BallTouchEventFn callbackFunc, void* userInfo) {
+	_ballTouchCallback.func = callbackFunc;
+	_ballTouchCallback.userInfo = userInfo;
+}
+
+void Arena::SetBoostPickupCallback(BoostPickupEventFn callbackFunc, void* userInfo) {
+	if (gameMode == GameMode::THE_VOID)
+		RS_ERR_CLOSE("Cannot set a boost pickup callback when on THE_VOID gamemode!");
+
+	_boostPickupCallback.func = callbackFunc;
+	_boostPickupCallback.userInfo = userInfo;
+}
+
 void Arena::SetGoalScoreCallback(GoalScoreEventFn callbackFunc, void* userInfo) {
 	if (gameMode == GameMode::THE_VOID)
 		RS_ERR_CLOSE("Cannot set a goal score callback when on THE_VOID gamemode");
@@ -319,7 +332,7 @@ void Arena::_BtCallback_OnCarBallCollision(Car* car, Ball* ball, btManifoldPoint
 	using namespace RLConst;
 
 	Vec relBallPos = (ballIsBodyA ? manifoldPoint.m_localPointA : manifoldPoint.m_localPointB) * BT_TO_UU;
-	ball->_OnHit(car, relBallPos, manifoldPoint.m_combinedFriction, manifoldPoint.m_combinedRestitution, gameMode, _mutatorConfig, tickCount);
+	ball->_OnHit(car, relBallPos, manifoldPoint.m_combinedFriction, manifoldPoint.m_combinedRestitution, gameMode, _mutatorConfig, tickCount, this, _ballTouchCallback.func, _ballTouchCallback.userInfo);
 }
 
 void Arena::_BtCallback_OnCarCarCollision(Car* car1, Car* car2, btManifoldPoint& manifoldPoint) {
@@ -648,9 +661,12 @@ Arena* Arena::DeserializeNew(DataStreamIn& in) {
 Arena* Arena::Clone(bool copyCallbacks) {
 	Arena* newArena = new Arena(this->gameMode, this->_config, this->GetTickRate());
 	
-	if (copyCallbacks) {
-		newArena->_goalScoreCallback = this->_goalScoreCallback;
+	if (copyCallbacks) 
+	{
+		newArena->_ballTouchCallback = this->_ballTouchCallback;
+		newArena->_boostPickupCallback = this->_boostPickupCallback;
 		newArena->_carBumpCallback = this->_carBumpCallback;
+		newArena->_goalScoreCallback = this->_goalScoreCallback;
 	}
 
 	newArena->ball->SetState(this->ball->GetState());
@@ -736,7 +752,10 @@ void Arena::Step(int ticksToSimulate) {
 
 		if (hasArenaStuff && !ballOnly)
 			for (BoostPad* pad : _boostPads)
-				pad->_PostTickUpdate(tickTime, _mutatorConfig);
+			{
+				if (pad->_PostTickUpdate(tickTime, _mutatorConfig) && _boostPickupCallback.func)
+					_boostPickupCallback.func(this, pad->_internalState.curLockedCar, pad, _boostPickupCallback.userInfo);
+			}
 
 		ball->_FinishPhysicsTick(_mutatorConfig);
 

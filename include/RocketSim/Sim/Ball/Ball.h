@@ -16,6 +16,10 @@ class btDynamicsWorld;
 
 RS_NS_START
 
+class Arena;
+class Car;
+using BallTouchEventFn = void(*)(class Arena* arena, Car* car, void* userInfo);
+
 struct RS_API BallState : public PhysState {
 	// Incremented every update, reset when SetState() is called
 	// Used for telling if a stateset occured
@@ -46,6 +50,7 @@ struct RS_API BallState : public PhysState {
 		uint64_t lastDamageTick; // Only valid if hasDamaged
 	};
 	DropshotInfo dsInfo;
+	std::uint32_t lastHitCarID = 0;
 
 	BallState() : PhysState() {
 		pos.z = RLConst::BALL_REST_Z;
@@ -101,7 +106,9 @@ public:
 	void _OnHit(
 		class Car* car, Vec relPos,
 		float& outFriction, float& outRestitution,
-		GameMode gameMode, const MutatorConfig& mutatorConfig, uint64_t tickCount
+		GameMode gameMode, const MutatorConfig& mutatorConfig, uint64_t tickCount, Arena* arena,
+		BallTouchEventFn ballTouchEventFunc,
+		void* ballTouchEventUserInfo
 	);
 	void _OnWorldCollision(GameMode gameMode, Vec normal, float tickTime);
 	// Returns true if the tiles state was modified

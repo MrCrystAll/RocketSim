@@ -52,7 +52,7 @@ public:
 	void _CheckCollide(Car* car);
 
 	void _PreTickUpdate(float tickTime);
-	void _PostTickUpdate(float tickTime, const MutatorConfig& mutatorConfig);
+	bool _PostTickUpdate(float tickTime, const MutatorConfig& mutatorConfig);
 private:
 	BoostPad() {}
 };

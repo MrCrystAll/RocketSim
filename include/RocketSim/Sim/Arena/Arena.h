@@ -22,8 +22,9 @@
 
 RS_NS_START
 
-typedef std::function<void(class Arena* arena, Team scoringTeam, void* userInfo)> GoalScoreEventFn;
-typedef std::function<void(class Arena* arena, Car* bumper, Car* victim, bool isDemo, void* userInfo)> CarBumpEventFn;
+using BoostPickupEventFn = void(*)(class Arena* arena, Car* car, BoostPad* boostPad, void* userInfo);
+using CarBumpEventFn = void(*)(class Arena* arena, Car* bumper, Car* victim, bool isDemo, void* userInfo);
+using GoalScoreEventFn = void(*)(class Arena* arena, Team scoringTeam, void* userInfo);
 
 // The container for all game simulation
 // Stores cars, the ball, all arena collisions, and manages the overall game state
@@ -95,6 +96,18 @@ public:
 	std::vector<btBvhTriangleMeshShape*> _worldCollisionBvhShapes = {};
 	std::vector<btStaticPlaneShape*> _worldCollisionPlaneShapes = {};
 	std::vector<btRigidBody*> _worldDropshotTileRBs = {};
+
+	struct {
+		BallTouchEventFn func = nullptr;
+		void* userInfo = nullptr;
+	} _ballTouchCallback;
+	void SetBallTouchCallback(BallTouchEventFn callbackFn, void* userInfo = nullptr);
+
+	struct {
+		BoostPickupEventFn func = nullptr;
+		void* userInfo = nullptr;
+	} _boostPickupCallback;
+	void SetBoostPickupCallback(BoostPickupEventFn callbackFn, void* userInfo = nullptr);
 
 	struct {
 		GoalScoreEventFn func = NULL;
